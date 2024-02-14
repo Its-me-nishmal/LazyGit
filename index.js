@@ -17,17 +17,16 @@ function lazyGit(message = 'Initial commit', options = {}) {
     const progressBarWidth = 50;
     let progress = 0;
     const interval = setInterval(() => {
-      const percent = Math.floor((progress / progressBarWidth) * 100);
       process.stdout.clearLine();
       process.stdout.cursorTo(0);
       const progressBar = '[' + '='.repeat(progress) + '>'.repeat(1) + ' '.repeat(progressBarWidth - progress - 1) + ']';
-      process.stdout.write(`${colorProgressBar}${progressBar} ${percent}%${colorReset}`);
+      process.stdout.write(`${colorProgressBar}${progressBar} ${Math.floor((progress / progressBarWidth) * 100)}%${colorReset}`);
       progress++;
       if (progress > progressBarWidth) {
         clearInterval(interval);
         console.log(''); // Add a new line after the progress bar animation is complete
       }
-    }, 50);
+    }, 100);
   };
 
   // Define a callback function for the push operation
