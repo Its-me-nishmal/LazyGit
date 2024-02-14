@@ -11,7 +11,7 @@ function lazyGit(message = 'Initial commit', options = {}) {
     .push(remote, branch, (err) => {
       if (err) {
         if (isFirstPush) {
-          console.log('Please push manually using "git push" command for the first time.');
+          console.error('Please push manually using "git push" command for the first time.');
           isFirstPush = false;
         } else {
           console.error('Error:', err);
