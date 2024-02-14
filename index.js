@@ -37,6 +37,7 @@ function lazyGit(message = 'Initial commit', options = {}) {
       console.error('Error committing changes:', err);
     });
 
+    
   // Set isFirstPush to false after the commit attempt
   if (isFirstPush) {
     isFirstPush = false;
