@@ -6,24 +6,29 @@ function lazyGit(message = 'Initial commit', options = {}) {
   const { b: branch = 'main', r: remote = 'origin' } = options;
   const git = simpleGit();
 
-  // Define a callback function for the push operation
-  const pushCallback = (err) => {
-    if (err) {
-      if (isFirstPush) {
-        console.error('Please push manually using "git push" command for the first time.');
-        isFirstPush = false;
-      } else {
-        console.error('Error:', err);
-      }
-    } else {
-      console.log('Changes committed and pushed successfully!');
-    }
-  };
-
   // Add and commit changes
   git.add('.')
     .commit(message)
-    .then(() => {
+    .then(({ files }) => {
+      if (files.length === 0) {
+        console.log('No changes to commit.');
+        return;
+      }
+
+      // Define a callback function for the push operation
+      const pushCallback = (err) => {
+        if (err) {
+          if (isFirstPush) {
+            console.error('Please push manually using "git push" command for the first time.');
+            isFirstPush = false;
+          } else {
+            console.error('Error:', err);
+          }
+        } else {
+          console.log('Changes committed and pushed successfully!');
+        }
+      };
+
       // Push changes only if it's not the first push attempt
       if (!isFirstPush) {
         git.push(remote, branch, pushCallback);
