@@ -1,6 +1,6 @@
 const lazyGit = require('./index.js');
 
 
-// Test lazyGit function
+// Test lazyGit functio
 lazyGit("Test commit");
 
