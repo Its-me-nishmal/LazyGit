@@ -10,22 +10,7 @@ function lazyGit(message = 'Initial commit', options = {}) {
   const colorReset = '\x1b[0m';
   const colorSuccess = '\x1b[32m'; // Green color for success
   const colorError = '\x1b[31m';   // Red color for error
-
-  // Define an ASCII art for Git logo
-  const gitLogo = `
-  _______   _______   _______   _______ 
- / ___   ) (  ____ ) (  ____ ) (  ____ )
-| /   ) | | (    ) | | (    ) | | (    )|
-| |   | | | (____) | | (____) | | (____)|
-| |   | | |  _____) | |     __) |  _____)
-| |   ) | | (        | (| (     | (      
-| (___) | | )        | (| (____/| )      
-(_______) |/         (_______/ |/       
-
-`;
-
-  // Print the Git logo
-  console.log(gitLogo);
+  const colorProgressBar = '\x1b[36m'; // Cyan color for progress bar
 
   // Define a function to print a progress bar animation
   const printProgressBar = () => {
@@ -35,11 +20,11 @@ function lazyGit(message = 'Initial commit', options = {}) {
       process.stdout.clearLine();
       process.stdout.cursorTo(0);
       const progressBar = '[' + '='.repeat(progress) + '>'.repeat(1) + ' '.repeat(progressBarWidth - progress - 1) + ']';
-      process.stdout.write(`Pushing changes: ${progressBar} ${progress}%`);
+      process.stdout.write(`${colorProgressBar}${progressBar} ${progress}%${colorReset}`);
       progress++;
       if (progress > progressBarWidth) {
         clearInterval(interval);
-        console.log('\n'); // Add a new line after the progress bar animation is complete
+        console.log(''); // Add a new line after the progress bar animation is complete
       }
     }, 50);
   };
@@ -48,13 +33,13 @@ function lazyGit(message = 'Initial commit', options = {}) {
   const pushCallback = (err) => {
     if (err) {
       if (isFirstPush) {
-        console.error(colorError, 'Please push manually using "git push" command for the first time.', colorReset);
+        console.error(`${colorError}Please push manually using "git push" command for the first time.${colorReset}`);
         isFirstPush = false;
       } else {
-        console.error(colorError, 'Error:', err, colorReset);
+        console.error(`${colorError}Error:${colorReset}`, err);
       }
     } else {
-      console.log(colorSuccess, `Changes committed and pushed successfully to branch ${branch}!`, colorReset);
+      console.log(`${colorSuccess}Changes committed and pushed successfully to branch ${branch}!${colorReset}`);
     }
   };
 
@@ -66,7 +51,7 @@ function lazyGit(message = 'Initial commit', options = {}) {
       return git.push(remote, branch, pushCallback);
     })
     .catch((err) => {
-      console.error(colorError, 'Error committing or pushing changes:', err, colorReset);
+      console.error(`${colorError}Error committing or pushing changes:${colorReset}`, err);
     });
 
   // Set isFirstPush to false after the commit attempt
