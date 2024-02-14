@@ -6,17 +6,22 @@ function lazyGit(message = 'Initial commit', options = {}) {
   const { b: branch = 'main', r: remote = 'origin' } = options;
   const git = simpleGit();
 
+  // Define ANSI escape codes for colors
+  const colorReset = '\x1b[0m';
+  const colorSuccess = '\x1b[32m'; // Green color for success
+  const colorError = '\x1b[31m';   // Red color for error
+
   // Define a callback function for the push operation
   const pushCallback = (err) => {
     if (err) {
       if (isFirstPush) {
-        console.error('Please push manually using "git push" command for the first time.');
+        console.error(colorError, 'Please push manually using "git push" command for the first time.', colorReset);
         isFirstPush = false;
       } else {
-        console.error('Error:', err);
+        console.error(colorError, 'Error:', err, colorReset);
       }
     } else {
-      console.log(`Changes committed and pushed successfully to branch ${branch}!`);
+      console.log(colorSuccess, `Changes committed and pushed successfully to branch ${branch}!`, colorReset);
     }
   };
 
@@ -25,7 +30,7 @@ function lazyGit(message = 'Initial commit', options = {}) {
     .commit(message)
     .push(remote, branch, pushCallback)
     .catch((err) => {
-      console.error('Error committing or pushing changes:', err);
+      console.error(colorError, 'Error committing or pushing changes:', err, colorReset);
     });
 
   // Set isFirstPush to false after the commit attempt
