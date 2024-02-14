@@ -26,7 +26,7 @@ function lazyGit(message = 'Initial commit', options = {}) {
       progress++;
       if (progress > progressBarWidth) {
         clearInterval(interval);
-        console.log(`${colorSuccess}Changes committed and pushed successfully to branch ${branch}!${colorReset}`);
+        console.log(`${colorSuccess}\nChanges committed and pushed successfully to branch ${branch}!${colorReset}`);
       }
     }, 100);
   };
