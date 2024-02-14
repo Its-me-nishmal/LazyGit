@@ -11,19 +11,37 @@ function lazyGit(message = 'Initial commit', options = {}) {
   const colorSuccess = '\x1b[32m'; // Green color for success
   const colorError = '\x1b[31m';   // Red color for error
 
-  // Define a function to print animated dots
-  const printDots = () => {
-    let dots = '';
+  // Define an ASCII art for Git logo
+  const gitLogo = `
+  _______   _______   _______   _______ 
+ / ___   ) (  ____ ) (  ____ ) (  ____ )
+| /   ) | | (    ) | | (    ) | | (    )|
+| |   | | | (____) | | (____) | | (____)|
+| |   | | |  _____) | |     __) |  _____)
+| |   ) | | (        | (| (     | (      
+| (___) | | )        | (| (____/| )      
+(_______) |/         (_______/ |/       
+
+`;
+
+  // Print the Git logo
+  console.log(gitLogo);
+
+  // Define a function to print a progress bar animation
+  const printProgressBar = () => {
+    const progressBarWidth = 50;
+    let progress = 0;
     const interval = setInterval(() => {
-      dots += '.';
       process.stdout.clearLine();
       process.stdout.cursorTo(0);
-      process.stdout.write(`Committing and pushing${dots}`);
-      if (dots.length === 3) {
+      const progressBar = '[' + '='.repeat(progress) + '>'.repeat(1) + ' '.repeat(progressBarWidth - progress - 1) + ']';
+      process.stdout.write(`Pushing changes: ${progressBar} ${progress}%`);
+      progress++;
+      if (progress > progressBarWidth) {
         clearInterval(interval);
-        console.log(''); // Add a new line after the animation is complete
+        console.log('\n'); // Add a new line after the progress bar animation is complete
       }
-    }, 500);
+    }, 50);
   };
 
   // Define a callback function for the push operation
@@ -44,7 +62,7 @@ function lazyGit(message = 'Initial commit', options = {}) {
   git.add('.')
     .commit(message)
     .then(() => {
-      printDots(); // Print animated dots while committing and pushing
+      printProgressBar(); // Print progress bar animation while pushing
       return git.push(remote, branch, pushCallback);
     })
     .catch((err) => {
