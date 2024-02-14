@@ -19,12 +19,14 @@ function lazyGit(message = 'Initial commit', options = {}) {
     const interval = setInterval(() => {
       process.stdout.clearLine();
       process.stdout.cursorTo(0);
-      const progressBar = '[' + '='.repeat(progress) + '>'.repeat(1) + ' '.repeat(progressBarWidth - progress - 1) + ']';
-      process.stdout.write(`${colorProgressBar}${progressBar} ${Math.floor((progress / progressBarWidth) * 100)}%${colorReset}`);
+      const completed = '='.repeat(progress);
+      const remaining = ' '.repeat(progressBarWidth - progress);
+      const progressBar = `[${colorProgressBar}${completed}>${colorReset}${remaining}]`;
+      process.stdout.write(progressBar);
       progress++;
       if (progress > progressBarWidth) {
         clearInterval(interval);
-        console.log(''); // Add a new line after the progress bar animation is complete
+        console.log(`${colorSuccess}Changes committed and pushed successfully to branch ${branch}!${colorReset}`);
       }
     }, 100);
   };
@@ -38,8 +40,6 @@ function lazyGit(message = 'Initial commit', options = {}) {
       } else {
         console.error(`${colorError}Error:${colorReset}`, err);
       }
-    } else {
-      console.log(`${colorSuccess}Changes committed and pushed successfully to branch ${branch}!${colorReset}`);
     }
   };
 
