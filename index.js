@@ -10,8 +10,7 @@ function lazyGit(message = 'Initial commit', options = {}) {
   git.add('.')
     .commit(message)
     .then((commitSummary) => {
-      const files = commitSummary.files;
-      if (files && files.length > 0) {
+      if (commitSummary && commitSummary.files && commitSummary.files.length > 0) {
         // Define a callback function for the push operation
         const pushCallback = (err) => {
           if (err) {
