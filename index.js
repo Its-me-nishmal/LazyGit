@@ -11,6 +11,21 @@ function lazyGit(message = 'Initial commit', options = {}) {
   const colorSuccess = '\x1b[32m'; // Green color for success
   const colorError = '\x1b[31m';   // Red color for error
 
+  // Define a function to print animated dots
+  const printDots = () => {
+    let dots = '';
+    const interval = setInterval(() => {
+      dots += '.';
+      process.stdout.clearLine();
+      process.stdout.cursorTo(0);
+      process.stdout.write(`Committing and pushing${dots}`);
+      if (dots.length === 3) {
+        clearInterval(interval);
+        console.log(''); // Add a new line after the animation is complete
+      }
+    }, 500);
+  };
+
   // Define a callback function for the push operation
   const pushCallback = (err) => {
     if (err) {
@@ -28,7 +43,10 @@ function lazyGit(message = 'Initial commit', options = {}) {
   // Add, commit, and push changes
   git.add('.')
     .commit(message)
-    .push(remote, branch, pushCallback)
+    .then(() => {
+      printDots(); // Print animated dots while committing and pushing
+      return git.push(remote, branch, pushCallback);
+    })
     .catch((err) => {
       console.error(colorError, 'Error committing or pushing changes:', err, colorReset);
     });
