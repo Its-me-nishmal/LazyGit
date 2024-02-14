@@ -16,7 +16,7 @@ function lazyGit(message = 'Initial commit', options = {}) {
         console.error('Error:', err);
       }
     } else {
-      console.log('Changes committed and pushed successfully!');
+      console.log(`Changes committed and pushed successfully to branch ${branch}!`);
     }
   };
 
