@@ -20,10 +20,23 @@ function lazyGit(message = 'Initial commit', options = {}) {
     }
   };
 
-  // Add, commit, and push changes
+  // Add and commit changes
   git.add('.')
     .commit(message)
-    .push(remote, branch, pushCallback);
+    .then(() => {
+      // Push changes only if it's not the first push attempt
+      if (!isFirstPush) {
+        git.push(remote, branch, pushCallback);
+      }
+    })
+    .catch((err) => {
+      console.error('Error committing changes:', err);
+    });
+
+  // Set isFirstPush to false after the commit attempt
+  if (isFirstPush) {
+    isFirstPush = false;
+  }
 }
 
 module.exports = lazyGit;
