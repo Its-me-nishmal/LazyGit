@@ -1,6 +1,6 @@
 const simpleGit = require('simple-git');
 
-let isFirstPush = false;
+let isFirstPush = true;
 
 function lazyGit(message = 'Initial commit', options = {}) {
   const { b: branch = 'main', r: remote = 'origin' } = options;
