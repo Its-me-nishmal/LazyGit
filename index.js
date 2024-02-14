@@ -17,10 +17,11 @@ function lazyGit(message = 'Initial commit', options = {}) {
     const progressBarWidth = 50;
     let progress = 0;
     const interval = setInterval(() => {
+      const percent = Math.floor((progress / progressBarWidth) * 100);
       process.stdout.clearLine();
       process.stdout.cursorTo(0);
       const progressBar = '[' + '='.repeat(progress) + '>'.repeat(1) + ' '.repeat(progressBarWidth - progress - 1) + ']';
-      process.stdout.write(`${colorProgressBar}${progressBar} ${progress}%${colorReset}`);
+      process.stdout.write(`${colorProgressBar}${progressBar} ${percent}%${colorReset}`);
       progress++;
       if (progress > progressBarWidth) {
         clearInterval(interval);
