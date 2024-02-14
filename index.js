@@ -18,7 +18,7 @@ function lazyGit(message = 'Initial commit', options = {}) {
       dots += '.';
       process.stdout.clearLine();
       process.stdout.cursorTo(0);
-      process.stdout.write(colorSuccess,`Committing and pushing${dots}`);
+      process.stdout.write(`Committing and pushing${dots}`);
       if (dots.length === 3) {
         clearInterval(interval);
         console.log(''); // Add a new line after the animation is complete
