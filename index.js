@@ -61,4 +61,6 @@ function lazyGit(message = 'Initial commit', options = {}) {
 }
 
 module.exports = lazyGit;
+module.exports.lzgit = lazyGit;
 module.exports.lg = lazyGit;
+module.exports.lz = lazyGit;
