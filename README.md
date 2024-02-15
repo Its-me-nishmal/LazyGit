@@ -4,16 +4,20 @@ A simple utility for lazy git commits and pushes.
 
 ## Installation
 
-You can install `lazy-git` via npm:
+You can install `lz-git` via npm:
 
 ```bash
-npm install lazy-git
+npm install lz-git
 ```
 
 # Usage
 
 ``` javascript
 const lg = require('lz-git');
+// or 
+const lz = require('lz-git');
+// or
+const lzgit = require('lz-git');
 
 // Basic usage
 lg();
