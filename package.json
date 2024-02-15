@@ -1,15 +1,20 @@
 {
-  "name": "lazygit",
+  "name": "lgit",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Its-me-nishmal/LazyGit"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "simple-git": "^3.22.0"
-  }
+  "bugs": {
+    "url": "https://github.com/Its-me-nishmal/LazyGit/issues"
+  },
+  "homepage": "https://github.com/Its-me-nishmal/LazyGit#readme"
 }
